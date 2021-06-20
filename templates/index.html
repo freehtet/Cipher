@@ -1,0 +1,26 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block styles %}
+{{ super() }}
+<link rel="icon" type="image/x-icon" href="{{url_for('static', filename='assets/favicon.ico')}}" />
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css')}}">
+{% endblock %}
+
+
+{% block title %}Coffee and Wifi{% endblock %}
+
+{% block content %}
+<div class="jumbotron text-center">
+    <div class="container">
+  <h1 class="display-4">⭐️⭐️⭐️ Cipher ⭐️⭐️⭐️ </h1>
+        <br>
+            <p> {{ logo }}</p>
+        <br>
+  <p class="lead">Want to send encrypted message ?</p>
+  <hr class="my-4">
+  <p>You've found the right place! Checkout the way how to encrypt the texts !!! </p>
+  <a class="btn btn-warning btn-lg" href="{{ url_for('add_cafe')}}" role="button">Show Me!</a>
+</div>
+    </div>
+
+{% endblock %}

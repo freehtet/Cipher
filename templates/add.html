@@ -1,0 +1,42 @@
+{% extends 'bootstrap/base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block styles %}
+{{ super() }}
+<link rel="icon" type="image/x-icon" href="{{url_for('static', filename='assets/favicon.ico')}}" />
+<link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css')}}">
+{% endblock %}
+
+{% block title %}Caesar Cipher{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-md-8">
+
+      <h1>Lets find out whether it work or not 😉 </h1>
+
+      <!-- This is where your WTForm will go -->
+        <br>
+      {{ wtf.quick_form(form, novalidate=True) }}
+      <br>
+
+        <a href="{{url_for('home')}}">Return to home page</a></p>
+
+      <p style="color:white;">
+          {% with messages = get_flashed_messages() %}
+          {% if messages %}
+          <h2 class="space-above"><a href="#">here your cipher text</a></h2>
+          {% for message in messages %}
+          {{ message }}
+          {% endfor %}
+          {% endif %}
+          {% endwith %}
+
+        </p>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}
