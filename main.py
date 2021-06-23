@@ -125,8 +125,8 @@ def add_cafe():
             message = caesar(start_text=text, shift_amount=rate, cipher_direction=type)
 
             flash(f"{message}")
-            pyperclip.copy(message)
-            pyperclip.paste()
+            # pyperclip.copy(message)
+            # pyperclip.paste()
 
         return redirect(url_for('add_cafe'))
     # Exercise:
@@ -141,8 +141,8 @@ def generate_password():
         password = password_generator()
 
         flash(f"{password}")
-        pyperclip.copy(password)
-        pyperclip.paste()
+        # pyperclip.copy(password)
+        # pyperclip.paste()
 
         return redirect(url_for('generate_password'))
     # Exercise:
