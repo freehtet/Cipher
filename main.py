@@ -4,6 +4,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, SelectField
 from wtforms.validators import DataRequired, URL
 import csv
+import pyperclip
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
@@ -74,7 +75,7 @@ a8"     "" 88 88P'    "8a 88P'    "8a a8P_____88 88P'   "Y8
 @app.route('/add', methods=["GET", "POST"])
 def add_cafe():
     form = CafeForm()
-
+    message = ""
     if form.validate_on_submit():
         text = (form.cafe.data).lower()
         if text != "":
@@ -96,6 +97,7 @@ def add_cafe():
             message = caesar(start_text=text, shift_amount=rate, cipher_direction=type)
 
             flash(f"{message}")
+            pyperclip.copy(message)
 
         return redirect(url_for('add_cafe'))
     # Exercise:

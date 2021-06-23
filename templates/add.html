@@ -26,14 +26,17 @@
       <p style="color:white;">
           {% with messages = get_flashed_messages() %}
           {% if messages %}
+            <em>'Text copied. Just Paste'</em>
           <h2 class="space-above"><a href="#">here your cipher text</a></h2>
-          {% for message in messages %}
+          <p id="myInput"> {% for message in messages %}
           {{ message }}
           {% endfor %}
           {% endif %}
-          {% endwith %}
+          {% endwith %} </p>
 
         </p>
+
+
 
     </div>
   </div>
