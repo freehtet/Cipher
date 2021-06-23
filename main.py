@@ -126,6 +126,7 @@ def add_cafe():
 
             flash(f"{message}")
             pyperclip.copy(message)
+            pyperclip.paste()
 
         return redirect(url_for('add_cafe'))
     # Exercise:
@@ -141,6 +142,7 @@ def generate_password():
 
         flash(f"{password}")
         pyperclip.copy(password)
+        pyperclip.paste()
 
         return redirect(url_for('generate_password'))
     # Exercise:
