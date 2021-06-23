@@ -20,14 +20,11 @@
         <br>
       {{ wtf.quick_form(form, novalidate=True) }}
       <br>
-
-        <a href="{{url_for('home')}}">Return to home page</a></p>
-
-      <p style="color:white;">
+        <p style="color:white;">
           {% with messages = get_flashed_messages() %}
           {% if messages %}
             <em>'Text copied. Just Paste'</em>
-          <h2 class="space-above"><a href="#">here your cipher text</a></h2>
+          <h2 class="space-above" style="color:gold;">here your cipher text</h2>
           <p id="myInput"> {% for message in messages %}
           {{ message }}
           {% endfor %}
@@ -35,6 +32,14 @@
           {% endwith %} </p>
 
         </p>
+
+        <br>
+        <br>
+
+
+        <a href="{{url_for('home')}}">Return to home page</a></p>
+
+
 
 
 

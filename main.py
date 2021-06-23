@@ -4,7 +4,10 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, SelectField
 from wtforms.validators import DataRequired, URL
 import csv
+from random import choice, randint, shuffle
 import pyperclip
+import sys
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
@@ -17,6 +20,12 @@ class CafeForm(FlaskForm):
     cafe = StringField('Enter Text', validators=[DataRequired()])
     submit = SubmitField('Go!')
 
+class PasswordForm(FlaskForm):
+    # type = SelectField("Please select", choices=["Encode️", "Decode"], validators=[DataRequired()])
+    # rating = SelectField("Rating", choices=["🐒️", "🐥", "🦅", "🐝", "🦄"], validators=[DataRequired()])
+    # cafe = StringField('Enter Text', validators=[DataRequired()])
+    submit = SubmitField('Get Me New Password!')
+
 # Exercise:
 # add: Location URL, open time, closing time, coffee rating, wifi rating, power outlet rating fields
 # make coffee/wifi/power a select element with choice of 0 to 5.
@@ -24,6 +33,7 @@ class CafeForm(FlaskForm):
 # make all fields required except submit
 # use a validator to check that the URL field has a URL entered.
 # ---------------------------------------------------------------------------
+
 
 def caesar(start_text, shift_amount, cipher_direction):
     alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
@@ -47,6 +57,24 @@ def caesar(start_text, shift_amount, cipher_direction):
             end_text += " "
 
     return end_text
+
+
+def password_generator():
+    letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+    symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
+
+    password_letters = [choice(letters) for _ in range(randint(8, 10))]
+    password_symbols = [choice(symbols) for _ in range(randint(2, 4))]
+    password_numbers = [choice(numbers) for _ in range(randint(2, 4))]
+
+    password_list = password_letters + password_symbols + password_numbers
+    shuffle(password_list)
+    shuffle(password_list)
+    shuffle(password_list)
+    password = "".join(password_list)
+
+    return password
 
 
 # all Flask routes below
@@ -104,6 +132,22 @@ def add_cafe():
     # Make the form write a new row into cafe-data.csv
     # with   if form.validate_on_submit()
     return render_template('add.html', form=form)
+
+@app.route('/password', methods=["GET", "POST"])
+def generate_password():
+    form = PasswordForm()
+    if form.validate_on_submit():
+        password = password_generator()
+
+        flash(f"{password}")
+        pyperclip.copy(password)
+
+        return redirect(url_for('generate_password'))
+    # Exercise:
+    # Make the form write a new row into cafe-data.csv
+    # with   if form.validate_on_submit()
+    return render_template('password.html', form=form)
+
 
 
 @app.route('/cafes')
